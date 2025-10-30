@@ -1,0 +1,16 @@
+playlist usada para javafx: https://www.youtube.com/watch?v=XlTG2joTQbg&list=PLWd_VnthxxLejQ9CcHrsT5HCFn-10kquZ&index=5
+
+
+
+o que precisamos agora:
+
+1-criar classes
+2-criar ambiente grafico javafx 
+  2.1-janela principal
+  2.2-login, cadastro e continuar como visitante
+  2.3-produtosViagem (destinos precos e botao de reservar)
+3-conectar banco de dados 
+
+
+
+
