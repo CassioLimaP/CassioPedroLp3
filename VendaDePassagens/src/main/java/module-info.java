@@ -13,4 +13,6 @@ module com.example.vendadepassagens {
     opens com.vendadepassagens.dao to javafx.fxml;
     exports com.config;
     opens com.config to javafx.fxml;
+    exports com.vendadepassagens.controller;
+    opens com.vendadepassagens.controller to javafx.fxml;
 }

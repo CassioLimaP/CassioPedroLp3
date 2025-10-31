@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.geometry.Insets?>
 
-<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-
-      fx:controller="com.vendadepassagens.TelaLoginController"
-
-      alignment="CENTER"
-      spacing="10.0"
-      style="-fx-background-color: #f4f4f4;">
+<VBox alignment="CENTER" prefHeight="334.0" prefWidth="258.0" spacing="10.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vendadepassagens.controller.TelaLoginController">
 
     <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
+        <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
 
-    <Label text="Email:" style="-fx-font-weight: bold;"/>
+    <Label prefWidth="40.0" style="-fx-font-weight: bold;" text="Email:" />
 
-    <TextField fx:id="emailField" promptText="seu@email.com" maxWidth="200.0"/>
+    <TextField fx:id="emailField" maxWidth="200.0" promptText="seu@email.com" />
 
-    <Label text="Senha:" style="-fx-font-weight: bold;"/>
+    <Label style="-fx-font-weight: bold;" text="Senha:" />
 
-    <PasswordField fx:id="senhaField" promptText="sua senha" maxWidth="200.0"/>
+    <PasswordField fx:id="senhaField" maxWidth="200.0" promptText="sua senha" />
 
-    <Button fx:id="loginButton" text="Entrar" onAction="#handleLoginButtonAction" defaultButton="true"/>
+    <Button fx:id="loginButton" defaultButton="true" onAction="#handleLoginButtonAction" text="Entrar" />
 
-    <Label fx:id="mensagemLabel" style="-fx-text-fill: red;"/>
+    <Label fx:id="mensagemLabel" style="-fx-text-fill: red;" />
+   <Button fx:id="cadastroButton" mnemonicParsing="false" onAction="#handleCadastroButtonAction" text="cadastre-se">
+      <VBox.margin>
+         <Insets top="10.0" />
+      </VBox.margin>
+   </Button>
+   <Button fx:id="visitanteButton" mnemonicParsing="false" onAction="#handleVisitanteButtonAction" text="continuar como visitante" />
 
 </VBox>
