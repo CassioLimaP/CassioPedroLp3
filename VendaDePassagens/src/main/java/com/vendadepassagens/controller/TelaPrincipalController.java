@@ -2,6 +2,8 @@ package com.vendadepassagens.controller;
 
 import com.vendadepassagens.dao.VooDAO;
 import com.vendadepassagens.model.Voo;
+import com.vendadepassagens.util.Navegador;
+import com.vendadepassagens.util.SessaoUsuario;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
@@ -16,7 +18,8 @@ import org.springframework.dao.DataAccessException;
 import java.util.List;
 
 public class TelaPrincipalController {
-
+    @FXML private Button loginButton;
+    @FXML private Label statusLoginLabel;
     @FXML private TextField origemField;
     @FXML private TextField destinoField;
     @FXML private Button buscarButton;
@@ -27,6 +30,26 @@ public class TelaPrincipalController {
     @FXML
     public void initialize() {
         this.vooDAO = new VooDAO();
+        if (SessaoUsuario.isLogado()) {
+            // USUÁRIO ESTÁ LOGADO
+            String nome = SessaoUsuario.getUsuarioLogado().getNome();
+
+            // 1. Define o texto do Label
+            statusLoginLabel.setText("Logado como: " + nome);
+            statusLoginLabel.setStyle("-fx-text-fill: green;");
+
+            // 2. MUDA O TEXTO DO BOTÃO
+            loginButton.setText("Logout");
+
+        } else {
+            // USUÁRIO É VISITANTE
+            // 1. Define o texto do Label
+            statusLoginLabel.setText("Você está navegando como visitante.");
+            statusLoginLabel.setStyle("-fx-text-fill: #888888;"); // Cinza
+
+            // 2. MANTÉM O TEXTO DO BOTÃO
+            loginButton.setText("Fazer Login");
+        }
         // Carrega todos os voos assim que a tela abre
         carregarVoos();
     }
@@ -105,4 +128,14 @@ public class TelaPrincipalController {
         alert.setContentText(conteudo);
         alert.showAndWait();
     }
+    @FXML
+    private void handleLoginLogoutAction() {
+        // 1. Verifica se o clique foi um "Logout"
+        if (SessaoUsuario.isLogado()) {
+            SessaoUsuario.limparSessao(); // Limpa a sessão (faz o logout)
+        }
+        // 2. em ambos os casos volta para login
+        Navegador.voltarParaLogin();
+    }
+
 }

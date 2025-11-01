@@ -4,6 +4,8 @@ import com.vendadepassagens.dao.UsuarioDAO;
 import com.vendadepassagens.model.Usuario;
 import com.vendadepassagens.util.Navegador;
 
+
+import com.vendadepassagens.util.SessaoUsuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -62,6 +64,8 @@ public class TelaLoginController {
                 // SUCESSO!
                 mensagemLabel.setText(""); // Limpa o erro
 
+                SessaoUsuario.setUsuarioLogado(usuario);
+
                 // Mostra um pop-up de sucesso
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Login");
@@ -99,6 +103,7 @@ public class TelaLoginController {
 
     @FXML
     protected void handleVisitanteButtonAction(ActionEvent event) {
+        SessaoUsuario.setUsuarioLogado(null);//garante que é visitante
         // TODO: Navegar para a tela principal (modo visitante)
         Navegador.mudarTela("com/vendadepassagens/view/TelaPrincipal.fxml", "Painel de Voos (Visitante)");
     }

@@ -45,7 +45,8 @@ public class Navegador {
     public static void mudarTela(String fxmlArquivo, String titulo) {
         try {
             // Carrega o FXML da pasta 'resources'
-            FXMLLoader fxmlLoader = new FXMLLoader(Navegador.class.getClassLoader().getResource(fxmlArquivo));
+            String caminhoAbsoluto = "/" + fxmlArquivo;
+            FXMLLoader fxmlLoader = new FXMLLoader(Navegador.class.getResource(caminhoAbsoluto));
             Parent root = fxmlLoader.load();
 
             // Cria uma nova cena com o FXML carregado
