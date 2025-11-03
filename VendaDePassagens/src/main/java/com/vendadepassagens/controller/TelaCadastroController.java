@@ -3,6 +3,7 @@ package com.vendadepassagens.controller;
 import com.vendadepassagens.dao.UsuarioDAO;
 import com.vendadepassagens.model.Usuario;
 import com.vendadepassagens.util.Navegador;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

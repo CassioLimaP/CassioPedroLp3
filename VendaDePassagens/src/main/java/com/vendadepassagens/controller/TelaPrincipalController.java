@@ -97,10 +97,10 @@ public class TelaPrincipalController {
         VBox card = new VBox(10.0); // 10px de espaçamento vertical
         card.setPadding(new Insets(10));
         card.setStyle("-fx-background-color: #F0F0F0; -fx-border-color: #CCC; -fx-border-width: 1; -fx-border-radius: 5;");
-        card.setPrefWidth(200.0); // Largura fixa para cada caixa
+        card.setPrefWidth(300.0); // Largura fixa para cada caixa
 
         // Conteúdo da caixa
-        Label destinoLabel = new Label(voo.getOrigem() + " -> " + voo.getDestino());
+        Label destinoLabel = new Label("EMBARQUE: "+voo.getOrigem() + " \nDESTINO: " + voo.getDestino());
         destinoLabel.setFont(new Font("System Bold", 14.0));
 
         Label precoLabel = new Label("R$ " + voo.getPrecoAssento().toString());

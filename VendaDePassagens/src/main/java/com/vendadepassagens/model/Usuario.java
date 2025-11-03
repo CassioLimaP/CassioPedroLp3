@@ -8,20 +8,6 @@ public class Usuario {
     private String documento;
     private int saldoMilhas; // Corresponde a 'saldo_milhas'
 
-    //metodos de usuario
-    public Boolean login(String email, String senha){
-        /*
-        verificar se usuario consta no banco de dados.
-        verificar senha correta
-        se estiver: recuperar estado do usuario, da valor true a Cadastro
-        se nao: mensagem de erro no login ou senha
-        */
-        return true ;
-    }
-    public void deslogar(){
-        //desloga o usuario
-    }
-
     //getters e setters
     public Integer getIdUsuario() {
         return idUsuario;

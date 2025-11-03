@@ -27,7 +27,6 @@
                <HBox.margin>
                   <Insets left="280.0" />
                </HBox.margin>
-
             </HBox>
             <Label fx:id="statusLoginLabel" style="-fx-font-weight: bold; -fx-padding: 5;" />
         </VBox>
