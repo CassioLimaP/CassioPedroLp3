@@ -11,7 +11,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vendadepassagens.controller.TelaPrincipalController">
+<?import java.lang.String?>
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.vendadepassagens.controller.TelaPrincipalController"
+            fx:id="rootBorderPane"
+            styleClass="janela-com-fundo">
+
+    <stylesheets>
+        <String fx:value="/com/vendadepassagens/css/style.css" />
+    </stylesheets>
 
     <top>
         <VBox alignment="CENTER" spacing="10" style="-fx-background-color: #ECECEC;">
@@ -24,9 +33,7 @@
                 <TextField fx:id="destinoField" promptText="Destino" />
                 <Button fx:id="buscarButton" onAction="#handleBuscarVoosAction" text="Buscar" />
                 <Button fx:id="loginButton" text="Fazer Login" onAction="#handleLoginLogoutAction" />
-               <HBox.margin>
-                  <Insets left="280.0" />
-               </HBox.margin>
+
             </HBox>
             <Label fx:id="statusLoginLabel" style="-fx-font-weight: bold; -fx-padding: 5;" />
         </VBox>

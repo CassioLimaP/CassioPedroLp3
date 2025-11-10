@@ -6,24 +6,34 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
+<?import java.lang.String?>
 
-<VBox alignment="CENTER" prefHeight="334.0" prefWidth="258.0" spacing="10.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vendadepassagens.controller.TelaLoginController">
+
+<VBox fx:id="rootVBox" alignment="CENTER" prefHeight="334.0" prefWidth="258.0" spacing="10.0"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.vendadepassagens.controller.TelaLoginController"
+      styleClass="janela-com-fundo">
+
+
+    <stylesheets>
+        <String fx:value="/com/vendadepassagens/css/style.css" />
+    </stylesheets>
 
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
 
-    <Label prefWidth="40.0" style="-fx-font-weight: bold;" text="Email:" />
+    <Label prefWidth="40.0" text="Email:" />
 
     <TextField fx:id="emailField" maxWidth="200.0" promptText="seu@email.com" />
 
-    <Label style="-fx-font-weight: bold;" text="Senha:" />
+    <Label text="Senha:" />
 
     <PasswordField fx:id="senhaField" maxWidth="200.0" promptText="sua senha" />
 
     <Button fx:id="loginButton" defaultButton="true" onAction="#handleLoginButtonAction" text="Entrar" />
 
-    <Label fx:id="mensagemLabel" style="-fx-text-fill: red;" />
+    <Label fx:id="mensagemLabel"  />
    <Button fx:id="cadastroButton" mnemonicParsing="false" onAction="#handleCadastroButtonAction" text="cadastre-se">
       <VBox.margin>
          <Insets top="10.0" />

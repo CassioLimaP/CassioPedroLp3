@@ -4,21 +4,22 @@ import com.vendadepassagens.dao.UsuarioDAO;
 import com.vendadepassagens.model.Usuario;
 import com.vendadepassagens.util.Navegador;
 import com.vendadepassagens.util.SessaoUsuario;
-
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
+import javafx.scene.layout.VBox;
 import org.springframework.dao.DataAccessException;
+
+import static com.vendadepassagens.util.Navegador.mudarTela;
 
 public class TelaLoginController {
 
     // 1. O "@FXML" conecta estas variáveis aos "fx:id" do FXML
+    @FXML
+    private VBox rootVBox;
+
     @FXML
     private TextField emailField;
 
@@ -26,16 +27,7 @@ public class TelaLoginController {
     private PasswordField senhaField;
 
     @FXML
-    private Button loginButton;
-
-    @FXML
     private Label mensagemLabel;
-
-    @FXML
-    private Button cadastroButton;
-
-    @FXML
-    private Button visitanteButton;
 
     // 2. Referência ao nosso DAO (a "ponte" para o banco)
     private UsuarioDAO usuarioDAO;
@@ -44,11 +36,12 @@ public class TelaLoginController {
     public void initialize() {
         this.usuarioDAO = new UsuarioDAO();
         mensagemLabel.setText("");
+        Navegador.setBackgroundImage(rootVBox, "/com/vendadepassagens/imagens/aeroporto-embacado-login.jpg");
     }
 
     // 3. Este método é chamado pelo "onAction" do botão no FXML
     @FXML
-    protected void handleLoginButtonAction(ActionEvent event) {
+    protected void handleLoginButtonAction() {
         String email = emailField.getText();
         String senha = senhaField.getText();
 
@@ -74,7 +67,7 @@ public class TelaLoginController {
                 alert.showAndWait();
 
                 // TODO: Navegar para a tela principal
-                Navegador.mudarTela("com/vendadepassagens/view/TelaPrincipal.fxml", "Painel de Voos");
+                Navegador.mudarTela("com/vendadepassagens/fxml/TelaPrincipal.fxml", "Painel de Voos");
 
             } else {
                 // FALHA (login/senha errados)
@@ -91,20 +84,21 @@ public class TelaLoginController {
             alert.setContentText("Não foi possível conectar ao banco: " + e.getMessage());
             alert.showAndWait();
 
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
     @FXML
-    protected void handleCadastroButtonAction(ActionEvent event) {
+    private void handleCadastroButtonAction() {
         // Usa o navegador para carregar a tela de cadastro
-        Navegador.mudarTela("com/vendadepassagens/view/TelaCadastro.fxml", "Cadastro de Usuário");
+        mudarTela("com/vendadepassagens/fxml/TelaCadastro.fxml", "Cadastro de Usuário");
+        //Navegador.mudarTela("com/vendadepassagens/view/Test.fxml", "TESTE");
     }
 
     @FXML
-    protected void handleVisitanteButtonAction(ActionEvent event) {
+    protected void handleVisitanteButtonAction() {
         SessaoUsuario.setUsuarioLogado(null);//garante que é visitante
         // TODO: Navegar para a tela principal (modo visitante)
-        Navegador.mudarTela("com/vendadepassagens/view/TelaPrincipal.fxml", "Painel de Voos (Visitante)");
+        Navegador.mudarTela("com/vendadepassagens/fxml/TelaPrincipal.fxml", "Painel de Voos (Visitante)");
     }
 }

@@ -2,7 +2,6 @@ package com.vendadepassagens.controller;
 
 import com.vendadepassagens.dao.VooDAO;
 import com.vendadepassagens.model.Voo;
-import com.vendadepassagens.util.Navegador;
 import com.vendadepassagens.util.SessaoUsuario;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -10,12 +9,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox; // Usaremos VBox para criar as "caixas"
 import javafx.scene.text.Font;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
+
+import com.vendadepassagens.util.Navegador;
 
 public class TelaPrincipalController {
     @FXML private Button loginButton;
@@ -26,9 +28,13 @@ public class TelaPrincipalController {
     @FXML private FlowPane painelDeVoos; // O container das "caixas"
 
     private VooDAO vooDAO;
+    @FXML private BorderPane rootBorderPane;
+
 
     @FXML
     public void initialize() {
+        //System.out.println("TelaPrincipalController: A variável rootBorderPane é nula? " + (rootBorderPane == null));
+        //Navegador.setBackgroundImage(rootBorderPane, "com/vendadepassagens/imagens/fundoInicial.jpg");
         this.vooDAO = new VooDAO();
         if (SessaoUsuario.isLogado()) {
             // USUÁRIO ESTÁ LOGADO

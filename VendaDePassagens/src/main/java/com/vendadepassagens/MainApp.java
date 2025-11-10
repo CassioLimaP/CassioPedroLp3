@@ -16,7 +16,7 @@ public class MainApp extends Application {
 
         // 1. Aponta para o seu ARQUIVO FXML da tela de login
         // Nova Linha 17:
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("/com/vendadepassagens/view/TelaLogin.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("/com/vendadepassagens/fxml/TelaLogin.fxml"));
         Parent root = fxmlLoader.load();
 
         // 2. Cria a cena e a exibe
