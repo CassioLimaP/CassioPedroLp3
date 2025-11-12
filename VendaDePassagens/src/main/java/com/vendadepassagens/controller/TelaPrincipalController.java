@@ -3,9 +3,11 @@ package com.vendadepassagens.controller;
 import com.vendadepassagens.dao.VooDAO;
 import com.vendadepassagens.model.Voo;
 import com.vendadepassagens.util.SessaoUsuario;
+import com.vendadepassagens.util.Navegador;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,10 +16,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox; // Usaremos VBox para criar as "caixas"
 import javafx.scene.text.Font;
 import org.springframework.dao.DataAccessException;
-
 import java.util.List;
 
-import com.vendadepassagens.util.Navegador;
 
 public class TelaPrincipalController {
     @FXML private Button loginButton;
@@ -26,6 +26,7 @@ public class TelaPrincipalController {
     @FXML private TextField destinoField;
     @FXML private Button buscarButton;
     @FXML private FlowPane painelDeVoos; // O container das "caixas"
+    @FXML private Button adminButton;
 
     private VooDAO vooDAO;
     @FXML private BorderPane rootBorderPane;
@@ -33,6 +34,15 @@ public class TelaPrincipalController {
 
     @FXML
     public void initialize() {
+        adminButton.setVisible(false);
+
+        // 1. Verifica se o usuário está logado
+        if (SessaoUsuario.isLogado()) {
+            // 2. Se estiver logado, verifica se é ADMIN
+            if (SessaoUsuario.getUsuarioLogado().isAdmin()) {
+                adminButton.setVisible(true); // Mostra o botão
+            }
+        }
         //System.out.println("TelaPrincipalController: A variável rootBorderPane é nula? " + (rootBorderPane == null));
         //Navegador.setBackgroundImage(rootBorderPane, "com/vendadepassagens/imagens/fundoInicial.jpg");
         this.vooDAO = new VooDAO();
@@ -142,6 +152,10 @@ public class TelaPrincipalController {
         }
         // 2. em ambos os casos volta para login
         Navegador.voltarParaLogin();
+    }
+    @FXML
+    private void handleAdminButtonAction() {
+        Navegador.mudarTela("com/vendadepassagens/fxml/TelaAdminVoo.fxml", "Admin: Cadastrar Voo");
     }
 
 }

@@ -5,6 +5,9 @@ import com.vendadepassagens.model.Voo;           // Importe seu modelo Voo
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import com.vendadepassagens.model.Voo; // Importe o modelo
+import java.sql.Timestamp;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -43,6 +46,25 @@ public class VooDAO {
 
         // O jdbcTemplate.query cuida de tudo e retorna a lista
         return jdbcTemplate.query(sql, new VooRowMapper());
+    }
+    public void inserirVoo(Voo novoVoo) {
+        String sql = "INSERT INTO voos " +
+                "(codigo_voo, origem, destino, data_partida, data_chegada, capacidade, preco_assento) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        // Converte LocalDateTime para Timestamp do SQL
+        Timestamp partida = Timestamp.valueOf(novoVoo.getDataPartida());
+        Timestamp chegada = Timestamp.valueOf(novoVoo.getDataChegada());
+
+        jdbcTemplate.update(sql,
+                novoVoo.getCodigoVoo(),
+                novoVoo.getOrigem(),
+                novoVoo.getDestino(),
+                partida,
+                chegada,
+                novoVoo.getCapacidade(),
+                novoVoo.getPrecoAssento()
+        );
     }
 
     // TODO: Adicionar métodos como buscarVooPorId(int id), etc.

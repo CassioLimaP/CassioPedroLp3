@@ -7,6 +7,7 @@ public class Usuario {
     private String senha;
     private String documento;
     private int saldoMilhas; // Corresponde a 'saldo_milhas'
+    private boolean isAdmin;
 
     //getters e setters
     public Integer getIdUsuario() {
@@ -48,6 +49,10 @@ public class Usuario {
     public void setDocumento(String documento) {
         this.documento = documento;
     }
+
+    public boolean isAdmin() {return isAdmin; }
+
+    public void setAdmin(boolean admin) {isAdmin = admin; }
 
     public int getSaldoMilhas() {
         return saldoMilhas;

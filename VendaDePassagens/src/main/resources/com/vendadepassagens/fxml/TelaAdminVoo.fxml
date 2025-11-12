@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="rootVBox" alignment="TOP_CENTER" spacing="15.0" styleClass="janela-com-fundo" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vendadepassagens.controller.TelaAdminVooController">
+    <stylesheets>
+        <String fx:value="com/vendadepassagens/css/style.css" />
+    </stylesheets>
+    <children>
+        <Label text="Cadastrar Novo Voo">
+            <font><Font name="System Bold" size="18.0" /></font>
+        </Label>
+        <GridPane alignment="CENTER" hgap="10.0" vgap="10.0">
+            <children>
+                <Label text="Código (ex: G3-1001):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="codigoField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label text="Origem:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="origemField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Destino:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="destinoField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label text="Partida (AAAA-MM-DD HH:MM):" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <TextField fx:id="partidaField" promptText="ex: 2025-12-31 14:30" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <Label text="Chegada (AAAA-MM-DD HH:MM):" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <TextField fx:id="chegadaField" promptText="ex: 2025-12-31 16:00" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                <Label text="Capacidade (Nº):" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <TextField fx:id="capacidadeField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                <Label text="Preço (ex: 450.50):" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                <TextField fx:id="precoField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            </children>
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+        </GridPane>
+        <Button fx:id="salvarButton" onAction="#handleSalvarVooAction" text="Salvar Voo" />
+        <Button fx:id="voltarButton" alignment="CENTER" onAction="#handleVoltarAction" text="Voltar ao Painel" />
+        <Label fx:id="mensagemLabel" />
+    </children>
+</VBox>

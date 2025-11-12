@@ -36,7 +36,9 @@ public class SessaoUsuario {
     public static boolean isLogado() {
         return usuarioLogado != null;
     }
-
+    public static boolean isadmin() {
+        return usuarioLogado != null;
+    }
     /**
      * Limpa a sessão (para um futuro botão de "Logout").
      */

@@ -26,6 +26,7 @@ public class UsuarioDAO {
             usuario.setSenha(rs.getString("senha")); // Lembre-se que está em texto puro
             usuario.setDocumento(rs.getString("documento"));
             usuario.setSaldoMilhas(rs.getInt("saldo_milhas"));
+            usuario.setAdmin(rs.getBoolean("is_admin"));
             return usuario;
         }
     }
