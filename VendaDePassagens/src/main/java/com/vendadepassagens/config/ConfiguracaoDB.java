@@ -1,4 +1,4 @@
-package com.config;
+package com.vendadepassagens.config;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;

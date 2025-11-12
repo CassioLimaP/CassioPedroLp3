@@ -1,24 +1,48 @@
-/*
-    arquivo css para retirar fundo de botao-label-field para que a funcao
-    Navegador.setBackgroundImage() nao tenha a imagem tampada pelos os mesmos
+/* --- FUNDOS DE JANELA --- */
+/* (Usamos caminhos absolutos a partir da raiz 'resources',
+   pois é o método mais confiável que encontrámos) */
 
-*/
-.janela-com-fundo {
-
+.login-janela {
+    -fx-background-image: url('/com/vendadepassagens/imagens/aeroporto-embacado-login.jpg');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
 }
+
+.principal-janela {
+    -fx-background-image: url('/com/vendadepassagens/imagens/fundo.jpg'); /* Ou o nome correto */
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+.cadastro-janela {
+    /* (Opcional) Usa a mesma imagem do login */
+    -fx-background-image: url('/com/vendadepassagens/imagens/aeroporto-embacado-login.jpg');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+
+/* --- CLASSE GENÉRICA PARA TRANSPARÊNCIA --- */
+/* (A classe que torna os componentes transparentes) */
+
 .janela-com-fundo .label {
     -fx-background-color: transparent;
-    -fx-text-fill: white;
+    -fx-text-fill: white; /* Texto branco */
     -fx-font-weight: bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 2, 0, 0, 1);
 }
 
 .janela-com-fundo .text-field,
 .janela-com-fundo .password-field {
-    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-background-color: rgba(255, 255, 255, 0.7); /* Branco semitransparente */
     -fx-background-radius: 5;
 }
-.janela-com-fundo #mensagemLabel { /* O # procura por um ID (fx:id) */
-    -fx-text-fill: #FFD700; /* Dourado/Amarelo */
-    -fx-font-size: 14px;
+
+.janela-com-fundo .button {
+    -fx-background-color: rgba(230, 230, 230, 0.8); /* Botão semitransparente */
 }
+
+/* (Pode adicionar .janela-com-fundo #mensagemLabel { ... } se precisar) */

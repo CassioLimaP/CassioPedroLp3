@@ -1,11 +1,10 @@
 package com.vendadepassagens.dao;
 
-import com.config.ConfiguracaoDB; // Importe sua config
+import com.vendadepassagens.config.ConfiguracaoDB; // Importe sua config
 import com.vendadepassagens.model.Voo;           // Importe seu modelo Voo
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.vendadepassagens.model.Voo; // Importe o modelo
 import java.sql.Timestamp;
 
 import java.sql.ResultSet;

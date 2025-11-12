@@ -34,20 +34,13 @@ public class TelaAdminVooController {
     public void initialize() {
         this.vooDAO = new VooDAO();
         mensagemLabel.setText("");
-        // Tenta carregar o fundo (ignore se falhar)
-        Navegador.setBackgroundImage(rootVBox, "com/vendadepassagens/imagens/aeroporto-embacado-login.jpg");
     }
 
     @FXML
     protected void handleSalvarVooAction(ActionEvent event) {
         try {
-            // 1. Coletar dados dos campos
             Voo novoVoo = getVoo();
-
-            // 4. Salvar no banco
             vooDAO.inserirVoo(novoVoo);
-
-            // 5. Sucesso
             mostrarAlerta("Sucesso", "Novo voo cadastrado!");
             limparCampos();
 
@@ -65,14 +58,10 @@ public class TelaAdminVooController {
         String codigo = codigoField.getText();
         String origem = origemField.getText();
         String destino = destinoField.getText();
-
-        // 2. Converter os dados (esta parte é sensível a erros)
         LocalDateTime partida = LocalDateTime.parse(partidaField.getText(), formatter);
         LocalDateTime chegada = LocalDateTime.parse(chegadaField.getText(), formatter);
         int capacidade = Integer.parseInt(capacidadeField.getText());
         BigDecimal preco = new BigDecimal(precoField.getText());
-
-        // 3. Criar o objeto Voo
         Voo novoVoo = new Voo();
         novoVoo.setCodigoVoo(codigo);
         novoVoo.setOrigem(origem);

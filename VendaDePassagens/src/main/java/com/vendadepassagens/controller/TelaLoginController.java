@@ -36,7 +36,7 @@ public class TelaLoginController {
     public void initialize() {
         this.usuarioDAO = new UsuarioDAO();
         mensagemLabel.setText("");
-        Navegador.setBackgroundImage(rootVBox, "/com/vendadepassagens/imagens/aeroporto-embacado-login.jpg");
+
     }
 
     // 3. Este método é chamado pelo "onAction" do botão no FXML
@@ -67,7 +67,7 @@ public class TelaLoginController {
                 alert.showAndWait();
 
                 // TODO: Navegar para a tela principal
-                Navegador.mudarTela("com/vendadepassagens/fxml/TelaPrincipal.fxml", "Painel de Voos");
+                Navegador.mudarTela("TelaPrincipal.fxml", "Painel de Voos");
 
             } else {
                 // FALHA (login/senha errados)
@@ -91,7 +91,7 @@ public class TelaLoginController {
     @FXML
     private void handleCadastroButtonAction() {
         // Usa o navegador para carregar a tela de cadastro
-        mudarTela("com/vendadepassagens/fxml/TelaCadastro.fxml", "Cadastro de Usuário");
+        mudarTela("TelaCadastro.fxml", "Cadastro de Usuário");
         //Navegador.mudarTela("com/vendadepassagens/view/Test.fxml", "TESTE");
     }
 
@@ -99,6 +99,6 @@ public class TelaLoginController {
     protected void handleVisitanteButtonAction() {
         SessaoUsuario.setUsuarioLogado(null);//garante que é visitante
         // TODO: Navegar para a tela principal (modo visitante)
-        Navegador.mudarTela("com/vendadepassagens/fxml/TelaPrincipal.fxml", "Painel de Voos (Visitante)");
+        Navegador.mudarTela("TelaPrincipal.fxml", "Painel de Voos (Visitante)");
     }
 }

@@ -4,7 +4,7 @@ import com.vendadepassagens.model.Usuario;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.dao.EmptyResultDataAccessException;
-import com.config.ConfiguracaoDB; // Assumindo que sua classe está aqui
+import com.vendadepassagens.config.ConfiguracaoDB; // Assumindo que sua classe está aqui
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

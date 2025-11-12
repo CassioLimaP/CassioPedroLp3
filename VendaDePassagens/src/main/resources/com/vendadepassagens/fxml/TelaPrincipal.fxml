@@ -12,7 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="rootBorderPane" prefHeight="600.0" prefWidth="800.0" styleClass="janela-com-fundo" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vendadepassagens.controller.TelaPrincipalController">
+<BorderPane fx:id="rootBorderPane" prefHeight="600.0" prefWidth="800.0"
+            styleClass=""
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.vendadepassagens.controller.TelaPrincipalController">
 
     <stylesheets>
         <String fx:value="/com/vendadepassagens/css/style.css" />

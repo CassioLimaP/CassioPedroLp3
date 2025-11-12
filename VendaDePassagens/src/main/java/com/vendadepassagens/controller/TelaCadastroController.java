@@ -9,7 +9,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox; // Importe o VBox
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 
@@ -21,22 +20,19 @@ public class TelaCadastroController {
     @FXML private TextField documentoField;
     @FXML private Label mensagemLabel;
 
-    @FXML private VBox rootVBox; // Adicionado para o fundo
-
     private UsuarioDAO usuarioDAO;
 
     @FXML
     public void initialize() {
         this.usuarioDAO = new UsuarioDAO();
 
-        if (mensagemLabel != null) { // Verificação de segurança
+        if (mensagemLabel != null) {
             mensagemLabel.setText("");
         }
-        Navegador.setBackgroundImage(rootVBox, "/com/vendadepassagens/imagens/aeroporto-embacado-login.jpg");
     }
 
     @FXML
-    protected void handleSalvarButtonAction(ActionEvent event) {
+    protected void handleSalvarButtonAction() {
         String nome = nomeField.getText();
         String email = emailField.getText();
         String senha = senhaField.getText();
