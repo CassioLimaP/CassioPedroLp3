@@ -9,15 +9,169 @@ o que precisamos agora:
   1.2-voo---->feito
   1.3-milhas
   1.4-passagem
-  1.5-reserva 
+  1.5-reserva -->feito
   1.6-cadastro----->feito
 2-criar ambiente grafico javafx------> feito
   2.1-janela principal-------->feito
   2.2-login, cadastro e continuar como visitante------------->feito
-  2.3-produtosViagem (destinos precos e botao de reservar)-------->falta
-3-conectar banco de dados---------->feito
-  3.1-preencher banco de dados com viagens
+  2.3-produtosViagem (destinos precos e botao de reservar)-------->feito
 
+3-conectar banco de dados
+  3.1-preencher banco de dados com viagens-->>janela admin para preencher adicionada
+
+
+comandos banco de dados:
+
+
+
+-- Garante que estamos usando o banco de dados certo
+USE companhia_aerea;
+
+-- Tabela 1: Usuarios
+-- Guarda quem pode logar e comprar.
+CREATE TABLE IF NOT EXISTS usuarios (
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha VARCHAR(100) NOT NULL, -- Em um projeto real, isso seria um HASH
+    documento VARCHAR(20) NOT NULL UNIQUE,
+    saldo_milhas INT DEFAULT 0
+) ENGINE=InnoDB;
+
+-- Tabela 2: Voos
+-- Guarda todos os voos disponíveis no sistema.
+CREATE TABLE IF NOT EXISTS voos (
+    id_voo INT AUTO_INCREMENT PRIMARY KEY,
+    codigo_voo VARCHAR(10) NOT NULL UNIQUE,
+    origem VARCHAR(50) NOT NULL,
+    destino VARCHAR(50) NOT NULL,
+    data_partida DATETIME NOT NULL,
+    data_chegada DATETIME NOT NULL,
+    capacidade INT NOT NULL,
+    preco_assento DECIMAL(10, 2) NOT NULL -- Ex: 12345678.99
+) ENGINE=InnoDB;
+
+-- Tabela 3: Reservas
+-- Liga um Usuario a um Voo, criando uma reserva (que pode estar pendente)
+CREATE TABLE IF NOT EXISTS reservas (
+    id_reserva INT AUTO_INCREMENT PRIMARY KEY,
+
+    -- Chaves Estrangeiras
+    id_usuario INT NOT NULL,
+    id_voo INT NOT NULL,
+
+    -- Dados da reserva
+    assento VARCHAR(5) NOT NULL,
+    data_reserva TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status_reserva VARCHAR(20) NOT NULL DEFAULT 'PENDENTE', -- Ex: PENDENTE, CONFIRMADA, CANCELADA
+
+    -- Constraints (Regras)
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+    FOREIGN KEY (id_voo) REFERENCES voos(id_voo),
+
+    -- Regra de negócio: um assento não pode ser reservado duas vezes no mesmo voo
+    UNIQUE KEY unq_voo_assento (id_voo, assento)
+)ENGINE=InnoDB;
+
+-- Tabela 4: Passagens (E-Tickets)
+-- É o bilhete final, gerado a partir de uma reserva confirmada.
+CREATE TABLE IF NOT EXISTS passagens (
+    id_passagem INT AUTO_INCREMENT PRIMARY KEY,
+    -- Chave Estrangeira
+    id_reserva INT NOT NULL UNIQUE, -- Uma reserva só gera UMA passagem
+
+    -- Dados da passagem
+    codigo_eticket VARCHAR(20) NOT NULL UNIQUE, -- O código da passagem final (ex: ABC-1234)
+    data_emissao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    -- Constraints
+    FOREIGN KEY (id_reserva) REFERENCES reservas(id_reserva)
+)ENGINE=InnoDB;
 
 .
+-- Garante que estamos usando o banco de dados certo
+USE companhia_aerea;
 
+-- Tabela 1: Usuarios
+-- Guarda quem pode logar e comprar.
+CREATE TABLE IF NOT EXISTS usuarios (
+                                        id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+                                        nome VARCHAR(100) NOT NULL,
+                                        email VARCHAR(100) NOT NULL UNIQUE,
+                                        senha VARCHAR(100) NOT NULL,
+                                        documento VARCHAR(20) NOT NULL UNIQUE,
+                                        saldo_milhas INT DEFAULT 0
+) ENGINE=InnoDB;
+
+-- Tabela 2: Voos
+-- Guarda todos os voos disponíveis no sistema.
+CREATE TABLE IF NOT EXISTS voos (
+                                    id_voo INT AUTO_INCREMENT PRIMARY KEY,
+                                    codigo_voo VARCHAR(10) NOT NULL UNIQUE,
+                                    origem VARCHAR(50) NOT NULL,
+                                    destino VARCHAR(50) NOT NULL,
+                                    data_partida DATETIME NOT NULL,
+                                    data_chegada DATETIME NOT NULL,
+                                    capacidade INT NOT NULL,
+                                    preco_assento DECIMAL(10, 2) NOT NULL
+) ENGINE=InnoDB;
+
+-- Tabela 3: Reservas
+-- Liga um Usuario a um Voo, criando uma reserva (que pode estar pendente)
+CREATE TABLE IF NOT EXISTS reservas (
+                                        id_reserva INT AUTO_INCREMENT PRIMARY KEY,
+                                        id_usuario INT NOT NULL,
+                                        id_voo INT NOT NULL,
+                                        assento VARCHAR(5) NOT NULL,
+                                        data_reserva TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                        status_reserva VARCHAR(20) NOT NULL DEFAULT 'PENDENTE',
+
+                                        FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+                                        FOREIGN KEY (id_voo) REFERENCES voos(id_voo),
+
+                                        UNIQUE KEY unq_voo_assento (id_voo, assento)
+) ENGINE=InnoDB;
+
+-- Tabela 4: Passagens (E-Tickets)
+-- É o bilhete final, gerado a partir de uma reserva confirmada.
+CREATE TABLE IF NOT EXISTS passagens (
+                                         id_passagem INT AUTO_INCREMENT PRIMARY KEY,
+                                         id_reserva INT NOT NULL UNIQUE,
+                                         codigo_eticket VARCHAR(20) NOT NULL UNIQUE,
+                                         data_emissao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+                                         FOREIGN KEY (id_reserva) REFERENCES reservas(id_reserva)
+) ENGINE=InnoDB;
+
+
+
+-- Garante que estamos no banco certo
+USE companhia_aerea;
+
+-- Voo 1: São Paulo -> Rio de Janeiro
+INSERT INTO voos
+(codigo_voo, origem, destino, data_partida, data_chegada, capacidade, preco_assento)
+VALUES
+    ('G3-1001', 'São Paulo (GRU)', 'Rio de Janeiro (SDU)', '2025-11-20 10:30:00', '2025-11-20 11:35:00', 180, 475.50);
+
+-- Voo 2: Rio de Janeiro -> Salvador
+INSERT INTO voos
+(codigo_voo, origem, destino, data_partida, data_chegada, capacidade, preco_assento)
+VALUES
+    ('AD-4020', 'Rio de Janeiro (SDU)', 'Salvador (SSA)', '2025-11-21 14:00:00', '2025-11-21 16:10:00', 150, 890.00);
+
+-- Voo 3: Curitiba -> Porto Alegre
+INSERT INTO voos
+(codigo_voo, origem, destino, data_partida, data_chegada, capacidade, preco_assento)
+VALUES
+    ('LA-3050', 'Curitiba (CWB)', 'Porto Alegre (POA)', '2025-11-20 09:00:00', '2025-11-20 10:15:00', 165, 399.90);
+
+
+-- Adiciona a nova coluna 'is_admin' à tabela 'usuarios'
+ALTER TABLE usuarios
+    ADD COLUMN is_admin BOOLEAN NOT NULL DEFAULT FALSE;
+
+-- Descubra o seu e-mail ou ID e substitua no comando
+UPDATE usuarios
+SET is_admin = TRUE
+WHERE email = 'admin';
