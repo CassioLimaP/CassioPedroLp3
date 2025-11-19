@@ -18,6 +18,7 @@ import org.springframework.dao.DuplicateKeyException;
 
 public class TelaReservarPassagemController {
 
+    @FXML private Button cancelar;
     @FXML private VBox rootVBox;
     @FXML private Label infoVooLabel;
     @FXML private TextField assentoField;

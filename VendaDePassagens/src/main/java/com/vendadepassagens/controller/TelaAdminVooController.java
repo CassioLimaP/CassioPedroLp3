@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,7 +15,6 @@ import java.time.format.DateTimeFormatter;
 
 public class TelaAdminVooController {
 
-    @FXML private VBox rootVBox;
     @FXML private TextField codigoField;
     @FXML private TextField origemField;
     @FXML private TextField destinoField;
@@ -28,7 +26,7 @@ public class TelaAdminVooController {
 
     private VooDAO vooDAO;
     // Define o formato que esperamos da data/hora
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @FXML
     public void initialize() {
@@ -76,7 +74,7 @@ public class TelaAdminVooController {
     @FXML
     protected void handleVoltarAction(ActionEvent event) {
         // Assume que você tem um FXML principal
-        Navegador.mudarTela("com/vendadepassagens/fxml/TelaPrincipal.fxml", "Painel de Voos");
+        Navegador.mudarTela("TelaPrincipal.fxml","tela principal");
     }
 
     private void limparCampos() {

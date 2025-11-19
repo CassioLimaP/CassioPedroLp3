@@ -2,7 +2,7 @@
 /* (Usamos caminhos absolutos a partir da raiz 'resources',
    pois é o método mais confiável que encontrámos) */
 
-.login-janela {
+.aeroporto-imagem-janela {
     -fx-background-image: url('/com/vendadepassagens/imagens/aeroporto-embacado-login.jpg');
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
@@ -10,7 +10,7 @@
 }
 
 .principal-janela {
-    -fx-background-image: url('/com/vendadepassagens/imagens/fundo.jpg'); /* Ou o nome correto */
+    -fx-background-image: url('/com/vendadepassagens/imagens/fundoInicial.jpg'); /* Ou o nome correto */
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
     -fx-background-position: center center;
@@ -32,7 +32,7 @@
     -fx-background-color: transparent;
     -fx-text-fill: white; /* Texto branco */
     -fx-font-weight: bold;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 2, 0, 0, 1);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.9), 2, 0, 0, 1);
 }
 
 .janela-com-fundo .text-field,

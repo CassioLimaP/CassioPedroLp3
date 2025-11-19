@@ -12,7 +12,7 @@
 <VBox fx:id="rootVBox" alignment="CENTER" prefHeight="334.0" prefWidth="258.0" spacing="10.0"
       xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.vendadepassagens.controller.TelaLoginController"
-      styleClass="janela-com-fundo, login-janela">
+      styleClass="janela-com-fundo, aeroporto-imagem-janela">
 
 
     <stylesheets>
