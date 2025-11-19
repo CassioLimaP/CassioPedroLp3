@@ -18,6 +18,7 @@ o que precisamos agora:
 
 3-conectar banco de dados
   3.1-preencher banco de dados com viagens-->>janela admin para preencher adicionada
+jesus é amor
 
 
 comandos banco de dados:
