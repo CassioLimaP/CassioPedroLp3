@@ -13,6 +13,8 @@ import javafx.stage.Modality;
 public class Navegador {
     private static Stage stagePrincipal;
     private static Scene cenaLogin; // Guarda a cena de login para reuso
+
+
     public static void setStagePrincipal(Stage stage) {
         stagePrincipal = stage;
     }

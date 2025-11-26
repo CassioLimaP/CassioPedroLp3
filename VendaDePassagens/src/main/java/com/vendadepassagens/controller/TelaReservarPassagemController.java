@@ -66,8 +66,6 @@ public class TelaReservarPassagemController {
             mostrarAlerta(Alert.AlertType.INFORMATION, "Sucesso",
                     "Reserva confirmada no assento " + assento + "! Você ganhou " + milhasGanhas + " milhas!");
 
-            mostrarAlerta(Alert.AlertType.INFORMATION, "Sucesso",
-                    "Reserva confirmada no assento " + assento + "!");
             fecharJanela();
         } catch (DuplicateKeyException e) {
             mensagemLabel.setText("Erro: Este assento já está ocupado neste voo.");
