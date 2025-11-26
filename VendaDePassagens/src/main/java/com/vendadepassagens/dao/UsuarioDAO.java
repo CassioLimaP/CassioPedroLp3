@@ -66,7 +66,14 @@ public class UsuarioDAO {
                 novoUsuario.getDocumento(),
                 novoUsuario.getSaldoMilhas()
         );
-        // Se o email/documento for duplicado, o Spring vai lançar
-        // uma DuplicateKeyException (Runtime) que o Controller pode pegar!
+    }
+    public void adicionarMilhas(int idUsuario, int milhas) {
+        String sql = "UPDATE usuarios SET saldo_milhas = saldo_milhas + ? WHERE id_usuario = ?";
+        jdbcTemplate.update(sql, milhas, idUsuario);
+    }
+
+    public int buscarSaldoMilhas(int idUsuario) {
+        String sql = "SELECT saldo_milhas FROM usuarios WHERE id_usuario = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, idUsuario);
     }
 }

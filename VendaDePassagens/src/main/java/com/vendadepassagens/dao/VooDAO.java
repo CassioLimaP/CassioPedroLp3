@@ -15,10 +15,6 @@ public class VooDAO {
 
     private JdbcTemplate jdbcTemplate = ConfiguracaoDB.getJdbcTemplate();
 
-    /**
-     * Mapeador: Ensina o Spring a converter uma linha do ResultSet
-     * em um objeto "Voo".
-     */
     private class VooRowMapper implements RowMapper<Voo> {
         @Override
         public Voo mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -35,11 +31,6 @@ public class VooDAO {
             return voo;
         }
     }
-
-    /**
-     * Busca TODOS os voos do banco de dados.
-     * (Mais tarde, você pode adicionar filtros de origem/destino aqui)
-     */
     public List<Voo> buscarTodosOsVoos() {
         String sql = "SELECT * FROM voos";
 
@@ -65,6 +56,14 @@ public class VooDAO {
                 novoVoo.getPrecoAssento()
         );
     }
+    public List<Voo> buscarVoosFiltrados(String origem, String destino) {
+        // Prepara os termos para busca parcial (ex: "%Rio%")
+        String termoOrigem = "%" + (origem != null ? origem : "") + "%";
+        String termoDestino = "%" + (destino != null ? destino : "") + "%";
 
-    // TODO: Adicionar métodos como buscarVooPorId(int id), etc.
+        String sql = "SELECT * FROM voos WHERE origem LIKE ? AND destino LIKE ?";
+
+        return jdbcTemplate.query(sql, new VooRowMapper(), termoOrigem, termoDestino);
+    }
+
 }

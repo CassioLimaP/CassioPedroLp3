@@ -1,22 +1,22 @@
 package com.vendadepassagens.controller;
 
+import com.vendadepassagens.dao.ReservaDAO;
 import com.vendadepassagens.dao.VooDAO;
+import com.vendadepassagens.model.MinhaReservaDTO;
 import com.vendadepassagens.model.Voo;
 import com.vendadepassagens.util.SessaoUsuario;
 import com.vendadepassagens.util.Navegador;
-
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-
 import org.springframework.dao.DataAccessException;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -28,7 +28,16 @@ public class TelaPrincipalController {
     @FXML private Button buscarButton;
     @FXML private FlowPane painelDeVoos; // O container das "caixas"
     @FXML private Button adminButton;
-    @FXML private BorderPane rootBorderPane;
+    @FXML private VBox painelMinhasReservas;
+    @FXML private TableView<MinhaReservaDTO> tabelaReservas;
+    @FXML private TableColumn<MinhaReservaDTO, String> colCodigo;
+    @FXML private TableColumn<MinhaReservaDTO, String> colOrigem;
+    @FXML private TableColumn<MinhaReservaDTO, String> colDestino;
+    @FXML private TableColumn<MinhaReservaDTO, LocalDateTime> colData;
+    @FXML private TableColumn<MinhaReservaDTO, String> colAssento;
+    @FXML private TableColumn<MinhaReservaDTO, String> colStatus;
+
+    private ReservaDAO reservaDAO; // Adicione o DAO
     private VooDAO vooDAO;
 
 
@@ -42,6 +51,14 @@ public class TelaPrincipalController {
         }
 
         this.vooDAO = new VooDAO();
+        this.reservaDAO = new ReservaDAO();
+        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigoVoo"));
+        colOrigem.setCellValueFactory(new PropertyValueFactory<>("origem"));
+        colDestino.setCellValueFactory(new PropertyValueFactory<>("destino"));
+        colData.setCellValueFactory(new PropertyValueFactory<>("dataPartida"));
+        colAssento.setCellValueFactory(new PropertyValueFactory<>("assento"));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+
         if (SessaoUsuario.isLogado()) {
             String nome = SessaoUsuario.getUsuarioLogado().getNome();
 
@@ -49,25 +66,62 @@ public class TelaPrincipalController {
             statusLoginLabel.setStyle("-fx-text-fill: green;");
             loginButton.setText("Logout");
 
+            painelMinhasReservas.setVisible(true);
+            painelMinhasReservas.setManaged(true);
+            atualizarTabelaReservas();
         } else {
             // USUÁRIO É VISITANTE
             statusLoginLabel.setText("Você está navegando como visitante.");
             statusLoginLabel.setStyle("-fx-text-fill: #888888;"); // Cinza
             loginButton.setText("Fazer Login");
+
+            painelMinhasReservas.setVisible(false);
+            painelMinhasReservas.setManaged(false);
         }
         carregarVoos();
     }
-
+    private void atualizarTabelaReservas() {
+        if (SessaoUsuario.isLogado()) {
+            int idUsuario = SessaoUsuario.getUsuarioLogado().getIdUsuario();
+            List<MinhaReservaDTO> reservas = reservaDAO.buscarReservasPorUsuario(idUsuario);
+            tabelaReservas.setItems(FXCollections.observableArrayList(reservas));
+        }
+    }
     @FXML
     protected void handleBuscarVoosAction() {
-        // TODO: Implementar a lógica de busca com filtros
-        // String origem = origemField.getText();
-        // String destino = destinoField.getText();
-        // carregarVoos(origem, destino);
+        String origem = origemField.getText().trim();
+        String destino = destinoField.getText().trim();
 
-        System.out.println("Buscando voos...");
-        // Por enquanto, apenas recarrega todos
-        carregarVoos();
+        try {
+            // Limpa o painel atual
+            painelDeVoos.getChildren().clear();
+
+            List<Voo> voosEncontrados;
+
+            // Se ambos estiverem vazios, carrega tudo (comportamento padrão)
+            if (origem.isEmpty() && destino.isEmpty()) {
+                voosEncontrados = vooDAO.buscarTodosOsVoos();
+            } else {
+                // Se tiver texto, usa o novo método de filtro
+                voosEncontrados = vooDAO.buscarVoosFiltrados(origem, destino);
+            }
+
+            if (voosEncontrados.isEmpty()) {
+                // Opcional: Mostrar um aviso visual que nada foi encontrado
+                Label aviso = new Label("Nenhum voo encontrado para esta rota.");
+                aviso.setStyle("-fx-font-size: 16px; -fx-text-fill: gray;");
+                painelDeVoos.getChildren().add(aviso);
+            } else {
+                // Cria os cards para os voos encontrados
+                for (Voo voo : voosEncontrados) {
+                    VBox cardVoo = criarCardVoo(voo);
+                    painelDeVoos.getChildren().add(cardVoo);
+                }
+            }
+
+        } catch (DataAccessException e) {
+            mostrarAlerta("Erro", "Erro ao buscar voos: " + e.getMessage());
+        }
     }
     private void carregarVoos() {
         try {
@@ -102,11 +156,11 @@ public class TelaPrincipalController {
                 return;
             }
             Navegador.abrirPopUpReserva(voo);
+            atualizarTabelaReservas();
         });
         card.getChildren().addAll(destinoLabel, precoLabel, detalhesLabel, reservarButton);
         return card;
     }
-
     private void mostrarAlerta(String titulo, String conteudo) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(titulo);
@@ -114,15 +168,13 @@ public class TelaPrincipalController {
         alert.setContentText(conteudo);
         alert.showAndWait();
     }
-    @FXML
-    private void handleLoginLogoutAction() {
+    @FXML private void handleLoginLogoutAction() {
         if (SessaoUsuario.isLogado()) {
             SessaoUsuario.limparSessao();
         }
         Navegador.voltarParaLogin();
     }
-    @FXML
-    private void handleAdminButtonAction() {
+    @FXML private void handleAdminButtonAction() {
         Navegador.mudarTela("TelaAdminVoo.fxml", "Admin: Cadastrar Voo");
     }
 }
