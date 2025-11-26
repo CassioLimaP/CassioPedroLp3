@@ -17,6 +17,7 @@ o que precisamos agora:
   2.3-produtosViagem (destinos precos e botao de reservar)--->feito
 
 3-conectar banco de dados
+
   3.1-preencher banco de dados com viagens-->>feito
 
 
