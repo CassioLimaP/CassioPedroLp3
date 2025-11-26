@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.String?>
+
+<BorderPane fx:id="rootBorderPane" prefHeight="600.0" prefWidth="800.0"
+            styleClass="janela-com-fundo"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.vendadepassagens.controller.TelaMeusVoosController">
+
+    <stylesheets>
+        <String fx:value="/com/vendadepassagens/css/style.css" />
+    </stylesheets>
+
+    <top>
+        <VBox alignment="CENTER" spacing="10" style="-fx-background-color: #ECECEC;">
+            <padding><Insets bottom="15" left="20" right="20" top="15" /></padding>
+
+            <Label text="Área do Cliente">
+                <font><Font name="System Bold" size="20.0" /></font>
+            </Label>
+
+            <HBox alignment="CENTER" spacing="20">
+                <Label text="Saldo de Milhas:" style="-fx-font-size: 16px;" />
+                <Label fx:id="milhasLabel" text="0" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: blue;" />
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="10">
+            <padding><Insets bottom="20" left="20" right="20" top="20" /></padding>
+
+            <Label text="Histórico de Viagens" styleClass="label" style="-fx-font-size: 16px; -fx-text-fill: white;" />
+
+            <TableView fx:id="tabelaVoos" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colCodigo" text="Voo" prefWidth="80" />
+                    <TableColumn fx:id="colOrigem" text="Origem" prefWidth="150" />
+                    <TableColumn fx:id="colDestino" text="Destino" prefWidth="150" />
+                    <TableColumn fx:id="colData" text="Data" prefWidth="120" />
+                    <TableColumn fx:id="colAssento" text="Assento" prefWidth="80" />
+                    <TableColumn fx:id="colStatus" text="Status" prefWidth="100" />
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-padding: 15;">
+            <Button text="Voltar ao Painel" onAction="#handleVoltarAction" />
+        </HBox>
+    </bottom>
+
+</BorderPane>

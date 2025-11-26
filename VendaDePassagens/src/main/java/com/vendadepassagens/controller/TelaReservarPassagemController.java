@@ -1,10 +1,10 @@
 package com.vendadepassagens.controller;
 
 import com.vendadepassagens.dao.ReservaDAO;
+import com.vendadepassagens.dao.UsuarioDAO;
 import com.vendadepassagens.model.Reserva;
 import com.vendadepassagens.model.Usuario;
 import com.vendadepassagens.model.Voo;
-import com.vendadepassagens.util.Navegador;
 import com.vendadepassagens.util.SessaoUsuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,6 +55,16 @@ public class TelaReservarPassagemController {
             novaReserva.setAssento(assento);
             novaReserva.setStatusReserva("CONFIRMADA");
             reservaDAO.criarReserva(novaReserva);
+            int milhasGanhas = 500;
+
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            usuarioDAO.adicionarMilhas(usuarioLogado.getIdUsuario(), milhasGanhas);
+
+            usuarioLogado.setSaldoMilhas(usuarioLogado.getSaldoMilhas() + milhasGanhas);
+            SessaoUsuario.setUsuarioLogado(usuarioLogado);
+
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Sucesso",
+                    "Reserva confirmada no assento " + assento + "! Você ganhou " + milhasGanhas + " milhas!");
 
             mostrarAlerta(Alert.AlertType.INFORMATION, "Sucesso",
                     "Reserva confirmada no assento " + assento + "!");

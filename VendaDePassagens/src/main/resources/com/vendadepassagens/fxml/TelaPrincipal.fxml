@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
 <BorderPane fx:id="rootBorderPane" prefHeight="600.0" prefWidth="800.0" styleClass="" stylesheets="/com/vendadepassagens/css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vendadepassagens.controller.TelaPrincipalController">
 
     <top>
@@ -41,5 +43,22 @@
         </ScrollPane>
 
     </center>
+    <bottom>
+        <VBox fx:id="painelMinhasReservas" alignment="CENTER" spacing="5" visible="false" managed="false" style="-fx-padding: 10; -fx-background-color: rgba(255,255,255,0.8);">
+
+            <Label text="Minhas Passagens Compradas" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+
+            <TableView fx:id="tabelaReservas" prefHeight="150.0">
+                <columns>
+                    <TableColumn fx:id="colCodigo" text="Voo" prefWidth="80" />
+                    <TableColumn fx:id="colOrigem" text="Origem" prefWidth="120" />
+                    <TableColumn fx:id="colDestino" text="Destino" prefWidth="120" />
+                    <TableColumn fx:id="colData" text="Data" prefWidth="120" />
+                    <TableColumn fx:id="colAssento" text="Assento" prefWidth="80" />
+                    <TableColumn fx:id="colStatus" text="Status" prefWidth="100" />
+                </columns>
+            </TableView>
+        </VBox>
+    </bottom>
 
 </BorderPane>
